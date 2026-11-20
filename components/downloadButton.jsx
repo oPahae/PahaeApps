@@ -12,11 +12,20 @@ async function downloadApp(app, onProgress) {
 
   for (const part of manifest.parts) {
     const response = await fetch(`${base}/${part}?v=${manifest.hash}`);
-    if (!response.ok) throw new Error(part);
-    const blob = await response.blob();
-    blobs.push(blob);
-    received += blob.size;
-    onProgress(Math.round((received / manifest.size) * 100));
+    if (!response.ok || !response.body) throw new Error(part);
+
+    const reader = response.body.getReader();
+    const chunks = [];
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      received += value.length;
+      onProgress(Math.min(100, Math.round((received / manifest.size) * 100)));
+    }
+
+    blobs.push(new Blob(chunks));
   }
 
   if (received !== manifest.size) throw new Error("size");
