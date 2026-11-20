@@ -8,9 +8,7 @@ export default function Header() {
           href="#accueil"
           className="flex items-center gap-2.5 rounded-md font-display text-xl font-semibold tracking-tight focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink text-sm font-bold text-paper">
-            P
-          </span>
+          <img src="/logo.png" className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink text-sm font-bold text-paper" />
           Pahae
         </a>
         <nav className="flex items-center gap-2">
