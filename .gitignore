@@ -1,0 +1,4 @@
+node_modules
+.next
+public/apps/*.exe
+public/apps/*.apk
